@@ -1,9 +1,8 @@
-
+/*PLEASE DO NOT EDIT THIS CODE*/
 /*This code was generated using the UMPLE 1.29.1.4753.5a97eca04 modeling language!*/
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Scanner;
+
+
+import java.util.*;
 
 // line 2 "model.ump"
 // line 135 "model.ump"
@@ -422,15 +421,8 @@ public class SystemManagment
 
   // line 13 "model.ump"
    public void insertChildInfo(String weight, String height){
-     Scanner scanner = new Scanner(System.in);
-     while (!isNumeric(weight)){
-      System.out.println("Please enter a correct child weight");
-      weight = scanner.nextLine();
-    }
-     while (!isNumeric(height)) {
-       System.out.println("Please enter a correct child height");
-       height = scanner.nextLine();
-     }
+
+    
   }
 
   // line 16 "model.ump"
@@ -519,6 +511,33 @@ public class SystemManagment
           }
         }
       }
+    }
+  }
+
+  public void removeEntry(String eticketID, String deviceID){
+    if(containsEticket(eticketID)){
+      if(containsDevice(deviceID)){
+        Eticket temp = getEticket(eticketID);
+        List<Device> tempDevices = temp.getDevices();
+        for(Device device : tempDevices){
+          if(device.getDeviceID().equals(deviceID)){
+            int price = device.getPrice();
+            Account tempAcc = temp.getKid().getGuardian().getAccount();
+            int currSum = temp.getKid().getGuardian().getAccount().getCurrBilling();
+            tempAcc.setCurrBilling(currSum-price);
+            temp.getDevices().remove(device);
+            System.out.println("Entry was removed successfully");
+            return;
+          }
+        }
+      }
+      else{
+        System.out.println("This deviceID doesn't exist in the system");
+        return;
+      }
+    }
+    else{
+      System.out.println("This eTicket ID doesn't exist in the system");
     }
   }
 

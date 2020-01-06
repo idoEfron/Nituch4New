@@ -1,6 +1,3 @@
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -9,7 +6,7 @@ public class Main {
         //todo notice to add here all of the objects we are creating in the program
 
         System.out.println("Hello, Welcome to our application" + "\n" + "press 1 to create a new user" + "\n" +
-                "press 2 to register a new kid" + "\n" + "press 3 to follow a registered kid" + "\n" + "enter 'Exit' in order to log out");
+                "press 2 to follow a registered kid" + "\n" + "enter 'Exit' in order to log out");
         SystemManagment systemManagment = new SystemManagment();
         Scanner sc = new Scanner(System.in);
         String line = sc.nextLine();
@@ -22,7 +19,9 @@ public class Main {
                     System.out.println("You are now registered." + "\n" + "please follow the instructions in order to register a new kid" + "\n");
                     break;
                 case "2":
-                    System.out.println("LOG IN");
+                    System.out.println("Press 3 in order to check the kid's eTicket"+"\n"+"Press 4 in order to add a new entry"
+                    +"\n"+"Press 5 in order to remove an entry"+"\n"+"Press 6 in order to return to the main menu");
+                    subMenu(systemManagment);
                     break;
                 case "Exit":
                     flag = true;
@@ -35,12 +34,43 @@ public class Main {
 
     }
 
+    private static void subMenu(SystemManagment systemManagment){
+
+        boolean flag=false;
+        while(!flag){
+            Scanner sc = new Scanner(System.in);
+            String line = sc.nextLine();
+            String answer;
+            switch (line){
+                case "3":
+                    System.out.println("Please insert the eTicket ID of your kid into the system");
+                    answer = sc.nextLine();
+                    systemManagment.followEticket(answer);
+                    break;
+                case "4":
+                    System.out.println("Please insert the eTicket ID of your kid into the system");
+                    answer = sc.nextLine();
+                    systemManagment.addEntries(answer);
+                    break;
+                case "5":
+                    System.out.println("Please insert the eTicket ID of your kid into the system");
+                    answer = sc.nextLine();
+                    System.out.println("Please insert the device name you want to remove");
+                    String secAnswer = sc.nextLine();
+                    systemManagment.removeEntry(answer,secAnswer);
+                    break;
+                case "6":
+                    flag=true;
+                    break;
+            }
+        }
+    }
+
     private static void registerKids(SystemManagment systemManagment) {
-        List<Kid> kids = new ArrayList<>();
         Scanner sc = new Scanner(System.in);
         System.out.println("Please insert your ID");
         String guardianID = sc.nextLine();
-        String chName = "";
+        String childName = "";
         String childAge = "";
         Guardian guardian = new Guardian(guardianID, systemManagment);
         //systemManagment.addGuardian(guardian);
@@ -51,11 +81,10 @@ public class Main {
                 case "1":
                     System.out.println("Please insert child form including name and age:");
                     System.out.println("Please insert child name");
-                    chName = sc.nextLine();
+                    childName = sc.nextLine();
                     System.out.println("Please insert child age");
                     childAge = sc.nextLine();
-                    systemManagment.fillInfo(chName, childAge);
-                    kids.add(new Kid("0",Integer.parseInt(childAge),0,"0",chName,guardian));
+                    systemManagment.fillInfo(childName, childAge);
                     break;
 
                 case "2":
@@ -77,33 +106,20 @@ public class Main {
         String maxBilling = sc.nextLine();
         CreditCard credit = new CreditCard(0,true,10000,guardian);
         guardian.setCreditCard(credit);
-        systemManagment.insertPayment(creditCard,maxBilling,guardian);//todo change uml
+        systemManagment.insertPayment(creditCard,maxBilling,guardian);
         credit.setCreditNumber(Integer.parseInt(creditCard));
         Account account = new Account(Integer.parseInt(maxBilling),0,guardian);
-        System.out.println("TOMER");
         guardian.setAccount(account);
         systemManagment.addGuardian(guardian);
-        for (Kid kid:kids) {
-            Kid newKid = new Kid(kid.getName(),kid.getAge(),0,String.valueOf(systemManagment.numberOfEtickets()+1),kid.getName(),guardian);
-            Eticket eticket = new Eticket(kid,systemManagment);
-            systemManagment.addEticket(eticket);
-            int sum = systemManagment.numberOfEtickets();
-            kid.setPassword(String.valueOf(sum));
-            kid.setEticket(eticket);
-            guardian.addKid(kid);
-            System.out.println("the user name for "+kid.getName() + " is: " + kid.getName() + ", and the password is: "+ kid.getPassword());
-            System.out.println("Please enter child weight and height");
-            System.out.println("Please enter child weight");
-            String childWeight = sc.nextLine();
-            System.out.println("Please enter child height");
-            String childHeight = sc.nextLine();
-            systemManagment.insertChildInfo(childWeight,childHeight);
-            System.out.println("all the children were added successful");
-        }
+        Kid kid = new Kid(childName,Integer.parseInt(childAge),0,String.valueOf(systemManagment.numberOfEtickets()+1),childName,guardian);
+        Eticket eticket = new Eticket(kid,systemManagment);
+        kid.setEticket(eticket);
+        guardian.addKid(kid);
+
     }
-    public void tomer(){
-        System.out.println("kds");
-    }
+
+
+
 }
 
 
