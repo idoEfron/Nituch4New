@@ -2,6 +2,7 @@
 /*This code was generated using the UMPLE 1.29.1.4753.5a97eca04 modeling language!*/
 
 
+import java.util.Objects;
 
 // line 48 "model.ump"
 // line 111 "model.ump"
@@ -18,7 +19,7 @@ public class Kid
   private int weight;
   private String password;
   private String name;
-  private int hight; //todo change in UML
+  private int height; //todo change in UML
 
   //Kid Associations
   private Eticket eticket;
@@ -45,6 +46,10 @@ public class Kid
     {
       throw new RuntimeException("Unable to create kid due to guardian. See http://manual.umple.org?RE002ViolationofAssociationMultiplicity.html");
     }
+  }
+
+  public void setHeight(int height) {
+    this.height = height;
   }
 
   public Kid(String aKidID, int aAge, int aWeight, String aPassword, String aName, SystemManagment aSystemManagmentForEticket, Guardian aGuardian)
@@ -143,8 +148,8 @@ public class Kid
     return eticket;
   }
 
-  public int getHight(){ //todo changed it
-    return hight;
+  public int getHeight(){ //todo changed it
+    return height;
   }
 
   /* Code from template association_GetOne */
@@ -199,5 +204,19 @@ public class Kid
             "name" + ":" + getName()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "eticket = "+(getEticket()!=null?Integer.toHexString(System.identityHashCode(getEticket())):"null") + System.getProperties().getProperty("line.separator") +
             "  " + "guardian = "+(getGuardian()!=null?Integer.toHexString(System.identityHashCode(getGuardian())):"null");
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Kid kid = (Kid) o;
+    return age == kid.age &&
+            weight == kid.weight &&
+            height == kid.height &&
+            kidID.equals(kid.kidID)&&
+            password.equals(kid.password)&&
+            name.equals(kid.name)&&
+            guardian.equals(kid.guardian);
   }
 }

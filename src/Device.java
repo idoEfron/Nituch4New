@@ -289,8 +289,8 @@ public class Device
       Kid tempKid = eticket.getKid();
       int age = tempKid.getAge();
       int weight = tempKid.getWeight();
-      int hight = tempKid.getHight();
-      if(this.minAge <= age && minWeight <= weight && minHight <= hight){
+      int height = tempKid.getHeight();
+      if(this.minAge <= age && minWeight <= weight && minHight <= height){
         return true;
       }
     }

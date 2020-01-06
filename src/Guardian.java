@@ -143,7 +143,7 @@ public class Guardian
   {
     boolean wasRemoved = false;
     //Unable to remove aKid, as it must always have a guardian
-    if (!this.equals(aKid.getGuardian()))
+    if (this.equals(aKid.getGuardian()))
     {
       kids.remove(aKid);
       wasRemoved = true;
@@ -228,6 +228,23 @@ public class Guardian
     wasSet = true;
     return wasSet;
   }
+
+  /**
+   * ido add equals ask him
+   * @param o
+   * @return
+   */
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Guardian guardian = (Guardian) o;
+    return Objects.equals(guardianID, guardian.guardianID) &&
+            Objects.equals(systemManagment, guardian.systemManagment) &&
+            Objects.equals(creditCard, guardian.creditCard);
+  }
+
+
   /* Code from template association_SetOptionalOneToOne */
   public boolean setAccount(Account aNewAccount)
   {

@@ -25,13 +25,15 @@ public class Main {
                     subMenu(systemManagment);
                     break;
                 case "3":
-
+                    if(systemManagment.getGuardians().size()>0) {
+                        systemManagment.leavePark();
+                    }
                 case "Exit":
                     flag = true;
                     break;
             }
             System.out.println("press 1 to create a new user" + "\n" +
-                    "press 2 to register a new kid" + "\n" + "press 3 to follow a registered kid" + "\n" + "enter 'Exit' in order to log out");
+                    "press 2 to register a new kid" + "\n" + "press 3 to leave the park" + "\n" + "enter 'Exit' in order to log out");
             line = sc.nextLine();
         }
 
@@ -119,10 +121,9 @@ public class Main {
         systemManagment.addGuardian(guardian);
         for (Kid kid:kids) {
             Kid newKid = new Kid(kid.getName()+String.valueOf(systemManagment.numberOfEtickets()+1),kid.getAge(),0,String.valueOf(systemManagment.numberOfEtickets()+1),kid.getName(),guardian);
-            Eticket eticket = new Eticket(kid,systemManagment);
+            Eticket eticket = new Eticket(newKid,systemManagment);
             systemManagment.addEticket(eticket);
-            int sum = systemManagment.numberOfEtickets();
-            //newKid.setPassword(String.valueOf(sum));
+            //int sum = systemManagment.numberOfEtickets();
             kid.setEticket(eticket);
             guardian.addKid(newKid);
             System.out.println("the user name for "+newKid.getName() + " is: " + newKid.getKidID() + ", and the password is: "+ newKid.getPassword());
@@ -131,7 +132,9 @@ public class Main {
             String childWeight = sc.nextLine();
             System.out.println("Please enter child height");
             String childHeight = sc.nextLine();
-            systemManagment.insertChildInfo(childWeight,childHeight);
+            systemManagment.insertChildInfo(childWeight,childHeight,newKid);
+            newKid.setWeight(Integer.parseInt(childWeight));
+
             System.out.println("all the children were added successful");
         }
     }
