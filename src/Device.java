@@ -299,12 +299,11 @@ public class Device
 
   public String toString()
   {
-    return super.toString() + "["+
+    return "["+
             "deviceID" + ":" + getDeviceID()+ "," +
             "minAge" + ":" + getMinAge()+ "," +
             "minWeight" + ":" + getMinWeight()+ "," +
             "isExtreme" + ":" + getIsExtreme()+ "," +
-            "price" + ":" + getPrice()+ "]" + System.getProperties().getProperty("line.separator") +
-            "  " + "systemManagment = "+(getSystemManagment()!=null?Integer.toHexString(System.identityHashCode(getSystemManagment())):"null");
+            "price" + ":" + getPrice()+ "]";
   }
 }

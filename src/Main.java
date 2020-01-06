@@ -10,6 +10,12 @@ public class Main {
         System.out.println("Hello, Welcome to our application" + "\n" + "press 1 to create a new user" + "\n" +
                 "press 2 to follow a registered kid" + "\n" +"press 3 to leave the park"+ "\n"+ "enter 'Exit' in order to log out");
         SystemManagment systemManagment = new SystemManagment();
+        Device mambaRide = new Device("Mamba Ride",12,0,140,true,15,systemManagment);
+        Device giantWheel = new Device("Giant Wheel",0,0,0,false,5,systemManagment);
+        Device carrousel = new Device ("Carrousel",8,0,0,false,10,systemManagment);
+        systemManagment.addDevice(mambaRide);
+        systemManagment.addDevice(giantWheel);
+        systemManagment.addDevice(carrousel);
         Scanner sc = new Scanner(System.in);
         String line = sc.nextLine();
         boolean flag = false;
@@ -20,8 +26,6 @@ public class Main {
                     System.out.println("You are now registered." + "\n" + "please follow the instructions in order to register a new kid" + "\n");
                     break;
                 case "2":
-                    System.out.println("Press 3 in order to check the kid's eTicket"+"\n"+"Press 4 in order to add a new entry"
-                    +"\n"+"Press 5 in order to remove an entry"+"\n"+"Press 6 in order to return to the main menu");
                     subMenu(systemManagment);
                     break;
                 case "3":
@@ -43,6 +47,8 @@ public class Main {
 
         boolean flag=false;
         while(!flag){
+            System.out.println("Press 3 in order to check the kid's eTicket"+"\n"+"Press 4 in order to add a new entry"
+                    +"\n"+"Press 5 in order to remove an entry"+"\n"+"Press 6 in order to return to the main menu");
             Scanner sc = new Scanner(System.in);
             String line = sc.nextLine();
             String answer;
@@ -86,7 +92,7 @@ public class Main {
         while (!addKids) {
             switch (kidChoice) {
                 case "1":
-                    System.out.println("Please insert child form including name and age:");
+                    //System.out.println("Please insert child form including name and age:");
                     System.out.println("Please insert child name");
                     chilName = sc.nextLine();
                     System.out.println("Please insert child age");
@@ -107,7 +113,7 @@ public class Main {
                 kidChoice = sc.nextLine();
             }
         }
-        System.out.println("Please enter credit card number and max billing amount to charge the account:");
+        //System.out.println("Please enter credit card number and max billing amount to charge the account:");
         System.out.println("Please enter credit card number:");
         String creditCard = sc.nextLine();
         System.out.println("Please enter max billing amount:");
@@ -127,13 +133,13 @@ public class Main {
             kid.setEticket(eticket);
             guardian.addKid(newKid);
             System.out.println("the user name for "+newKid.getName() + " is: " + newKid.getKidID() + ", and the password is: "+ newKid.getPassword());
-            System.out.println("Please enter child weight and height");
+            //System.out.println("Please enter child weight and height");
             System.out.println("Please enter child weight");
             String childWeight = sc.nextLine();
-            System.out.println("Please enter child height");
+            System.out.println("Please enter child height in CM");
             String childHeight = sc.nextLine();
             systemManagment.insertChildInfo(childWeight,childHeight,newKid);
-            newKid.setWeight(Integer.parseInt(childWeight));
+         //   newKid.setWeight(Integer.parseInt(childWeight));
 
             System.out.println("all the children were added successful");
         }
