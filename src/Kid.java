@@ -18,7 +18,7 @@ public class Kid
   private int weight;
   private String password;
   private String name;
-  private int hight; //todo change in UML
+  private int height; //todo change in UML
 
   //Kid Associations
   private Eticket eticket;
@@ -144,7 +144,7 @@ public class Kid
   }
 
   public int getHight(){ //todo changed it
-    return hight;
+    return height;
   }
 
   /* Code from template association_GetOne */

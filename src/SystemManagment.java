@@ -14,9 +14,9 @@ public class SystemManagment
   //------------------------
 
   //SystemManagment Associations
-  private List<Eticket> etickets;
-  private List<Guardian> guardians;
-  private List<Device> devices;
+  private LinkedList<Eticket> etickets;
+  private LinkedList<Guardian> guardians;
+  private LinkedList<Device> devices;
 
   //------------------------
   // CONSTRUCTOR
@@ -24,9 +24,9 @@ public class SystemManagment
 
   public SystemManagment()
   {
-    etickets = new ArrayList<Eticket>();
-    guardians = new ArrayList<Guardian>();
-    devices = new ArrayList<Device>();
+    etickets = new LinkedList<Eticket>();
+    guardians = new LinkedList<Guardian>();
+    devices = new LinkedList<Device>();
   }
 
   //------------------------
@@ -433,7 +433,7 @@ public class SystemManagment
     else{
       for(Eticket eticket : etickets){
         if(eticket.getKid().getKidID().equals(eticketID)){
-          eticket.toString();
+          System.out.println(eticket.checkDetails());
           return;
         }
       }
@@ -452,7 +452,7 @@ public class SystemManagment
         Eticket eticket = getEticket(eticketID);
           for (Device device : devices) {
             if (device.isLegalDevice(eticket)) {
-              device.toString();
+              System.out.println(device.toString());
             }
           }
           //until here the guardian can see all of his options
@@ -484,6 +484,7 @@ public class SystemManagment
                   if(passAccountLimit(tempDevice.getPrice(),eticketID)){
                     Eticket temp = getEticket(eticketID);
                     temp.addDevice(tempDevice);
+                    updateAccountAdd(tempDevice,getEticket(eticketID));
                     System.out.println("The device"+tempDevice.getDeviceID()+"added successfully");
                   }
                   else{
@@ -501,17 +502,36 @@ public class SystemManagment
                 if(passAccountLimit(tempDevice.getPrice(),eticketID)){
                   Eticket temp = getEticket(eticketID);
                   temp.addDevice(tempDevice);
+                  updateAccountAdd(tempDevice,getEticket(eticketID));
                   System.out.println("The device"+tempDevice.getDeviceID()+"added successfully");
                 }
                 else{
-                  System.out.println("You didn't confirm the extreme"+"\n"+"The device wasn't added");
+                  System.out.println("You passed your account balance"+"\n"+"The device wasn't added");
                 }
               }
             }
+            else {
+              System.out.println("The device you chose is not a legal option for your children, the device wasn't added");
+            }
+          }
+          else {
+            System.out.println("The device doesn't exist in the system, the device wasn't added");
           }
         }
       }
     }
+  }
+
+  private void updateAccountAdd(Device device, Eticket eticket){
+     int price = device.getPrice();
+     int currBilling = eticket.getKid().getGuardian().getAccount().getCurrBilling();
+     eticket.getKid().getGuardian().getAccount().setCurrBilling(price+currBilling);
+  }
+
+  private void updateAccountRemove(Device device, Eticket eticket){
+    int price = device.getPrice();
+    int currBilling = eticket.getKid().getGuardian().getAccount().getCurrBilling();
+    eticket.getKid().getGuardian().getAccount().setCurrBilling(currBilling-price);
   }
 
   public void removeEntry(String eticketID, String deviceID){
@@ -519,16 +539,25 @@ public class SystemManagment
       if(containsDevice(deviceID)){
         Eticket temp = getEticket(eticketID);
         List<Device> tempDevices = temp.getDevices();
+        boolean flag=false;
+        Device tempDevice=null;
+        int counter=0;
         for(Device device : tempDevices){
           if(device.getDeviceID().equals(deviceID)){
-            int price = device.getPrice();
-            Account tempAcc = temp.getKid().getGuardian().getAccount();
-            int currSum = temp.getKid().getGuardian().getAccount().getCurrBilling();
-            tempAcc.setCurrBilling(currSum-price);
-            temp.getDevices().remove(device);
-            System.out.println("Entry was removed successfully");
-            return;
+            flag=true;
+            tempDevice = device;
+            break;
           }
+          counter++;
+        }
+        if(flag) {
+          int price = tempDevice.getPrice();
+          Account tempAcc = temp.getKid().getGuardian().getAccount();
+          int currSum = temp.getKid().getGuardian().getAccount().getCurrBilling();
+          tempAcc.setCurrBilling(currSum - price);
+          //temp.getDevices().remove(counter);
+          temp.removeDevice(tempDevice);
+          System.out.println("Entry was removed successfully");
         }
       }
       else{
@@ -557,7 +586,7 @@ public class SystemManagment
     if(etickets==null){
       return false;
     }
-    if(etickets.size()>1){
+    if(etickets.size()>=1){
       for(Eticket eticket : etickets){
         if(eticket.getKid().getKidID().equals(eticketID)){
           return true;
@@ -569,7 +598,7 @@ public class SystemManagment
 
   private Eticket getEticket (String eticketID){
     if(etickets!=null){
-      if(etickets.size()>1){
+      if(etickets.size()>=1){
         for(Eticket eticket : etickets){
           if(eticket.getKid().getKidID().equals(eticketID)){
             return eticket;
@@ -582,7 +611,7 @@ public class SystemManagment
 
   private boolean containsDevice(String deviceID){
     if(devices!=null){
-      if(devices.size()>1){
+      if(devices.size()>=1){
         for(Device device : devices){
           if(device.getDeviceID().equals(deviceID)){
             return true;
@@ -598,7 +627,7 @@ public class SystemManagment
       return null;
     }
     else{
-      if(devices.size()>1){
+      if(devices.size()>=1){
         for(Device device : devices){
           if(device.getDeviceID().equals(deviceID)){
             return device;

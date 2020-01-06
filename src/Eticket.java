@@ -217,14 +217,27 @@ public class Eticket
   }
 
   // line 33 "model.ump"
-   public String checkDetails(String arg0){
+   public String checkDetails(){ //todo change in uml
 
-    return null;
+    return toString();
   }
 
   // line 36 "model.ump"
    public void addEntry(String arg0, String arg1){
     
+  }
+
+  @Override
+  public String toString(){
+    String s = "This eTicket belongs to "+getKid().getName()+" the user ID is "+getKid().getKidID()+". The entries are:"+"\n";
+    String t ="";
+
+    if(devices!=null){
+      for(Device device : devices){
+        t=t+device.getDeviceID()+" ";
+      }
+    }
+    return s+t;
   }
 
 }
