@@ -645,7 +645,7 @@ public class SystemManagment {
         }
         Guardian guardian = eticket.getKid().getGuardian();
         removeKid(guardian, eticket);
-        System.out.println("press 1 to remove another child of press any key to return to main menu");
+        System.out.println("press 1 to remove another child or press any key to return to main menu");
         String choice = scanner.nextLine();
         if(choice.equals("1")){
             leavePark();
@@ -661,13 +661,13 @@ public class SystemManagment {
     private void removeKid(Guardian guardian, Eticket eticket) {
         Kid kid = eticket.getKid();
         if (guardian.removeKid(kid)) {
-            Main.systemObject.remove(kid);
+            Main.systemObjects.remove(kid);
             System.out.println("the child: " + kid.getName() + " was removed from the system");
             int sumToPay = 0;
             for (Device device : eticket.getDevices()) {
                 sumToPay = sumToPay + device.getPrice();
             }
-            System.out.println("the amount that needed to be payed for "+kid.getName() + "is :" + sumToPay );
+            System.out.println("the amount that needed to be payed for "+kid.getName() + "is : " + sumToPay );
             guardian.getCreditCard().setAmountInBank(guardian.getCreditCard().getAmountInBank()-sumToPay);
             System.out.println("your account has been charge for the amount " +sumToPay + " and your current balance is:" +
                     guardian.getCreditCard().getAmountInBank());
