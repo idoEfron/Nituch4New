@@ -1,12 +1,14 @@
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-
     public static void main(String[] args) {
         //todo notice to add here all of the objects we are creating in the program
 
         System.out.println("Hello, Welcome to our application" + "\n" + "press 1 to create a new user" + "\n" +
-                "press 2 to follow a registered kid" + "\n" + "enter 'Exit' in order to log out");
+                "press 2 to register a new kid" + "\n" + "press 3 to follow a registered kid" + "\n" + "enter 'Exit' in order to log out");
         SystemManagment systemManagment = new SystemManagment();
         Scanner sc = new Scanner(System.in);
         String line = sc.nextLine();
@@ -68,10 +70,11 @@ public class Main {
 
 
     private static void registerKids(SystemManagment systemManagment) {
+        List<Kid> kids = new ArrayList<>();
         Scanner sc = new Scanner(System.in);
         System.out.println("Please insert your ID");
         String guardianID = sc.nextLine();
-        String childName = "";
+        String chilName = "";
         String childAge = "";
         Guardian guardian = new Guardian(guardianID, systemManagment);
         //systemManagment.addGuardian(guardian);
@@ -82,10 +85,11 @@ public class Main {
                 case "1":
                     System.out.println("Please insert child form including name and age:");
                     System.out.println("Please insert child name");
-                    childName = sc.nextLine();
+                    chilName = sc.nextLine();
                     System.out.println("Please insert child age");
                     childAge = sc.nextLine();
-                    systemManagment.fillInfo(childName, childAge);
+                    systemManagment.fillInfo(chilName, childAge);
+                    kids.add(new Kid("0",Integer.parseInt(childAge),0,"0",childAge,guardian));
                     break;
 
                 case "2":
@@ -107,20 +111,29 @@ public class Main {
         String maxBilling = sc.nextLine();
         CreditCard credit = new CreditCard(0,true,10000,guardian);
         guardian.setCreditCard(credit);
-        systemManagment.insertPayment(creditCard,maxBilling,guardian);
+        systemManagment.insertPayment(creditCard,maxBilling,guardian);//todo change uml
         credit.setCreditNumber(Integer.parseInt(creditCard));
         Account account = new Account(Integer.parseInt(maxBilling),0,guardian);
         guardian.setAccount(account);
         systemManagment.addGuardian(guardian);
-        Kid kid = new Kid(childName,Integer.parseInt(childAge),0,String.valueOf(systemManagment.numberOfEtickets()+1),childName,guardian);
-        Eticket eticket = new Eticket(kid,systemManagment);
-        kid.setEticket(eticket);
-        guardian.addKid(kid);
-
+        for (Kid kid:kids) {
+            Kid newKid = new Kid(kid.getName(),kid.getAge(),0,String.valueOf(systemManagment.numberOfEtickets()+1),kid.getName(),guardian);
+            Eticket eticket = new Eticket(kid,systemManagment);
+            systemManagment.addEticket(eticket);
+            int sum = systemManagment.numberOfEtickets();
+            kid.setPassword(String.valueOf(sum));
+            kid.setEticket(eticket);
+            guardian.addKid(kid);
+            System.out.println("the user name for "+kid.getName() + " is: " + kid.getName() + ", and the password is: "+ kid.getPassword());
+            System.out.println("Please enter child weight and height");
+            System.out.println("Please enter child weight");
+            String childWeight = sc.nextLine();
+            System.out.println("Please enter child height");
+            String childHeight = sc.nextLine();
+            systemManagment.insertChildInfo(childWeight,childHeight);
+            System.out.println("all the children were added successful");
+        }
     }
-
-
-
 }
 
 
