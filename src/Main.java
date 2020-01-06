@@ -21,7 +21,9 @@ public class Main {
                     System.out.println("You are now registered." + "\n" + "please follow the instructions in order to register a new kid" + "\n");
                     break;
                 case "2":
-                    System.out.println("LOG IN");
+                    System.out.println("Press 3 in order to check the kid's eTicket"+"\n"+"Press 4 in order to add a new entry"
+                    +"\n"+"Press 5 in order to remove an entry"+"\n"+"Press 6 in order to return to the main menu");
+                    subMenu(systemManagment);
                     break;
                 case "Exit":
                     flag = true;
@@ -33,6 +35,39 @@ public class Main {
         }
 
     }
+
+    private static void subMenu(SystemManagment systemManagment){
+
+        boolean flag=false;
+        while(!flag){
+            Scanner sc = new Scanner(System.in);
+            String line = sc.nextLine();
+            String answer;
+            switch (line){
+                case "3":
+                    System.out.println("Please insert the eTicket ID of your kid into the system");
+                    answer = sc.nextLine();
+                    systemManagment.followEticket(answer);
+                    break;
+                case "4":
+                    System.out.println("Please insert the eTicket ID of your kid into the system");
+                    answer = sc.nextLine();
+                    systemManagment.addEntries(answer);
+                    break;
+                case "5":
+                    System.out.println("Please insert the eTicket ID of your kid into the system");
+                    answer = sc.nextLine();
+                    System.out.println("Please insert the device name you want to remove");
+                    String secAnswer = sc.nextLine();
+                    systemManagment.removeEntry(answer,secAnswer);
+                    break;
+                case "6":
+                    flag=true;
+                    break;
+            }
+        }
+    }
+
 
     private static void registerKids(SystemManagment systemManagment) {
         List<Kid> kids = new ArrayList<>();
@@ -98,9 +133,6 @@ public class Main {
             systemManagment.insertChildInfo(childWeight,childHeight);
             System.out.println("all the children were added successful");
         }
-    }
-    public void tomer(){
-        System.out.println("kds");
     }
 }
 
