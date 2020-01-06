@@ -1,7 +1,5 @@
-package src;/*PLEASE DO NOT EDIT THIS CODE*/
+
 /*This code was generated using the UMPLE 1.29.1.4753.5a97eca04 modeling language!*/
-
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
