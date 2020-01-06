@@ -8,7 +8,7 @@ public class Main {
         //todo notice to add here all of the objects we are creating in the program
 
         System.out.println("Hello, Welcome to our application" + "\n" + "press 1 to create a new user" + "\n" +
-                "press 2 to register a new kid" + "\n" + "press 3 to follow a registered kid" + "\n" + "enter 'Exit' in order to log out");
+                "press 2 to follow a registered kid" + "\n" +"press 3 to leave the park"+ "\n"+ "enter 'Exit' in order to log out");
         SystemManagment systemManagment = new SystemManagment();
         Scanner sc = new Scanner(System.in);
         String line = sc.nextLine();
@@ -17,7 +17,6 @@ public class Main {
             switch (line) {
                 case "1":
                     registerKids(systemManagment);
-
                     System.out.println("You are now registered." + "\n" + "please follow the instructions in order to register a new kid" + "\n");
                     break;
                 case "2":
@@ -25,6 +24,8 @@ public class Main {
                     +"\n"+"Press 5 in order to remove an entry"+"\n"+"Press 6 in order to return to the main menu");
                     subMenu(systemManagment);
                     break;
+                case "3":
+
                 case "Exit":
                     flag = true;
                     break;
@@ -89,7 +90,7 @@ public class Main {
                     System.out.println("Please insert child age");
                     childAge = sc.nextLine();
                     systemManagment.fillInfo(chilName, childAge);
-                    kids.add(new Kid("0",Integer.parseInt(childAge),0,"0",childAge,guardian));
+                    kids.add(new Kid("0",Integer.parseInt(childAge),0,"0",chilName,guardian));
                     break;
 
                 case "2":
@@ -117,14 +118,14 @@ public class Main {
         guardian.setAccount(account);
         systemManagment.addGuardian(guardian);
         for (Kid kid:kids) {
-            Kid newKid = new Kid(kid.getName(),kid.getAge(),0,String.valueOf(systemManagment.numberOfEtickets()+1),kid.getName(),guardian);
+            Kid newKid = new Kid(kid.getName()+String.valueOf(systemManagment.numberOfEtickets()+1),kid.getAge(),0,String.valueOf(systemManagment.numberOfEtickets()+1),kid.getName(),guardian);
             Eticket eticket = new Eticket(kid,systemManagment);
             systemManagment.addEticket(eticket);
             int sum = systemManagment.numberOfEtickets();
-            kid.setPassword(String.valueOf(sum));
+            //newKid.setPassword(String.valueOf(sum));
             kid.setEticket(eticket);
-            guardian.addKid(kid);
-            System.out.println("the user name for "+kid.getName() + " is: " + kid.getName() + ", and the password is: "+ kid.getPassword());
+            guardian.addKid(newKid);
+            System.out.println("the user name for "+newKid.getName() + " is: " + newKid.getKidID() + ", and the password is: "+ newKid.getPassword());
             System.out.println("Please enter child weight and height");
             System.out.println("Please enter child weight");
             String childWeight = sc.nextLine();
