@@ -3,16 +3,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+
 public class Main {
+    public static List<Object> systemObjects = new ArrayList<>();
     public static void main(String[] args) {
         //todo notice to add here all of the objects we are creating in the program
 
         System.out.println("Hello, Welcome to our application" + "\n" + "press 1 to create a new user" + "\n" +
                 "press 2 to follow a registered kid" + "\n" +"press 3 to leave the park"+ "\n"+ "enter 'Exit' in order to log out");
         SystemManagment systemManagment = new SystemManagment();
+        systemObjects.add(systemManagment);
         Device mambaRide = new Device("Mamba Ride",12,0,140,true,15,systemManagment);
         Device giantWheel = new Device("Giant Wheel",0,0,0,false,5,systemManagment);
         Device carrousel = new Device ("Carrousel",8,0,0,false,10,systemManagment);
+        systemObjects.add(mambaRide);
+        systemObjects.add(giantWheel);
+        systemObjects.add(carrousel);
         systemManagment.addDevice(mambaRide);
         systemManagment.addDevice(giantWheel);
         systemManagment.addDevice(carrousel);
@@ -33,11 +39,12 @@ public class Main {
                         systemManagment.leavePark();
                     }
                 case "Exit":
+                    systemObjects.clear();
                     flag = true;
                     break;
             }
-            System.out.println("press 1 to create a new user" + "\n" +
-                    "press 2 to register a new kid" + "\n" + "press 3 to leave the park" + "\n" + "enter 'Exit' in order to log out");
+            System.out.println("Hello, Welcome to our application" + "\n" + "press 1 to create a new user" + "\n" +
+                    "press 2 to follow a registered kid" + "\n" +"press 3 to leave the park"+ "\n"+ "enter 'Exit' in order to log out");
             line = sc.nextLine();
         }
 
@@ -99,6 +106,7 @@ public class Main {
                     childAge = sc.nextLine();
                     systemManagment.fillInfo(chilName, childAge);
                     kids.add(new Kid("0",Integer.parseInt(childAge),0,"0",chilName,guardian));
+
                     break;
 
                 case "2":
@@ -119,6 +127,7 @@ public class Main {
         System.out.println("Please enter max billing amount:");
         String maxBilling = sc.nextLine();
         CreditCard credit = new CreditCard(0,true,10000,guardian);
+        System.out.println("Processing credit card with bank..."+"\n");
         guardian.setCreditCard(credit);
         systemManagment.insertPayment(creditCard,maxBilling,guardian);//todo change uml
         credit.setCreditNumber(Integer.parseInt(creditCard));
