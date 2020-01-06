@@ -40,7 +40,7 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         System.out.println("Please insert your ID");
         String guardianID = sc.nextLine();
-        String childName = "";
+        String chName = "";
         String childAge = "";
         Guardian guardian = new Guardian(guardianID, systemManagment);
         //systemManagment.addGuardian(guardian);
@@ -51,11 +51,11 @@ public class Main {
                 case "1":
                     System.out.println("Please insert child form including name and age:");
                     System.out.println("Please insert child name");
-                    childName = sc.nextLine();
+                    chName = sc.nextLine();
                     System.out.println("Please insert child age");
                     childAge = sc.nextLine();
-                    systemManagment.fillInfo(childName, childAge);
-                    kids.add(new Kid("0",Integer.parseInt(childAge),0,"0",childName,guardian));
+                    systemManagment.fillInfo(chName, childAge);
+                    kids.add(new Kid("0",Integer.parseInt(childAge),0,"0",chName,guardian));
                     break;
 
                 case "2":
