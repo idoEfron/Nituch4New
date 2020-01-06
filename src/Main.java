@@ -65,6 +65,8 @@ public class Main {
                     flag=true;
                     break;
             }
+            System.out.println("Press 3 in order to check the kid's eTicket"+"\n"+"Press 4 in order to add a new entry"
+                    +"\n"+"Press 5 in order to remove an entry"+"\n"+"Press 6 in order to return to the main menu");
         }
     }
 
