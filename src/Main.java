@@ -41,7 +41,7 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         System.out.println("Please insert your ID");
         String guardianID = sc.nextLine();
-        String chName = "";
+        String chilName = "";
         String childAge = "";
         Guardian guardian = new Guardian(guardianID, systemManagment);
         //systemManagment.addGuardian(guardian);
@@ -52,11 +52,11 @@ public class Main {
                 case "1":
                     System.out.println("Please insert child form including name and age:");
                     System.out.println("Please insert child name");
-                    chName = sc.nextLine();
+                    chilName = sc.nextLine();
                     System.out.println("Please insert child age");
                     childAge = sc.nextLine();
-                    systemManagment.fillInfo(chName, childAge);
-                    kids.add(new Kid("0",Integer.parseInt(childAge),0,"0",chName,guardian));
+                    systemManagment.fillInfo(chilName, childAge);
+                    kids.add(new Kid("0",Integer.parseInt(childAge),0,"0",childAge,guardian));
                     break;
 
                 case "2":
@@ -80,6 +80,7 @@ public class Main {
         guardian.setCreditCard(credit);
         systemManagment.insertPayment(creditCard,maxBilling,guardian);//todo change uml
         credit.setCreditNumber(Integer.parseInt(creditCard));
+        System.out.println("fuccccccccccccccccccccckkkkkkkkkkkkkkkkkkkkkkkkkkk");
         Account account = new Account(Integer.parseInt(maxBilling),0,guardian);
         guardian.setAccount(account);
         systemManagment.addGuardian(guardian);
