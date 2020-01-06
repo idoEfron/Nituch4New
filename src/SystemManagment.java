@@ -661,6 +661,7 @@ public class SystemManagment {
     private void removeKid(Guardian guardian, Eticket eticket) {
         Kid kid = eticket.getKid();
         if (guardian.removeKid(kid)) {
+            Main.systemObject.remove(kid);
             System.out.println("the child: " + kid.getName() + " was removed from the system");
             int sumToPay = 0;
             for (Device device : eticket.getDevices()) {

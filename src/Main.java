@@ -4,15 +4,20 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main {
+    static List<Object> systemObject = new ArrayList<>();
     public static void main(String[] args) {
         //todo notice to add here all of the objects we are creating in the program
 
         System.out.println("Hello, Welcome to our application" + "\n" + "press 1 to create a new user" + "\n" +
                 "press 2 to follow a registered kid" + "\n" +"press 3 to leave the park"+ "\n"+ "enter 'Exit' in order to log out");
         SystemManagment systemManagment = new SystemManagment();
+        systemObject.add(systemManagment);
         Device mambaRide = new Device("Mamba Ride",12,0,140,true,15,systemManagment);
         Device giantWheel = new Device("Giant Wheel",0,0,0,false,5,systemManagment);
         Device carrousel = new Device ("Carrousel",8,0,0,false,10,systemManagment);
+        systemObject.add(mambaRide);
+        systemObject.add(giantWheel);
+        systemObject.add(carrousel);
         systemManagment.addDevice(mambaRide);
         systemManagment.addDevice(giantWheel);
         systemManagment.addDevice(carrousel);
@@ -34,6 +39,7 @@ public class Main {
                     }
                 case "Exit":
                     flag = true;
+                    systemObject.clear();
                     break;
             }
             System.out.println("press 1 to create a new user" + "\n" +
@@ -125,13 +131,17 @@ public class Main {
         Account account = new Account(Integer.parseInt(maxBilling),0,guardian);
         guardian.setAccount(account);
         systemManagment.addGuardian(guardian);
+        systemObject.add(account);
+        systemObject.add(guardian);
         for (Kid kid:kids) {
             Kid newKid = new Kid(kid.getName()+String.valueOf(systemManagment.numberOfEtickets()+1),kid.getAge(),0,String.valueOf(systemManagment.numberOfEtickets()+1),kid.getName(),guardian);
             Eticket eticket = new Eticket(newKid,systemManagment);
             systemManagment.addEticket(eticket);
             //int sum = systemManagment.numberOfEtickets();
-            kid.setEticket(eticket);
+            newKid.setEticket(eticket);
             guardian.addKid(newKid);
+            systemObject.add(newKid);
+            systemObject.add(eticket);
             System.out.println("the user name for "+newKid.getName() + " is: " + newKid.getKidID() + ", and the password is: "+ newKid.getPassword());
             //System.out.println("Please enter child weight and height");
             System.out.println("Please enter child weight");
@@ -140,7 +150,6 @@ public class Main {
             String childHeight = sc.nextLine();
             systemManagment.insertChildInfo(childWeight,childHeight,newKid);
          //   newKid.setWeight(Integer.parseInt(childWeight));
-
             System.out.println("all the children were added successful");
         }
     }
