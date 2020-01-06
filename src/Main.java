@@ -4,8 +4,6 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-
-    
     public static void main(String[] args) {
         //todo notice to add here all of the objects we are creating in the program
 
@@ -80,9 +78,7 @@ public class Main {
         guardian.setCreditCard(credit);
         systemManagment.insertPayment(creditCard,maxBilling,guardian);//todo change uml
         credit.setCreditNumber(Integer.parseInt(creditCard));
-        System.out.println("fuccccccccccccccccccccckkkkkkkkkkkkkkkkkkkkkkkkkkk");
         Account account = new Account(Integer.parseInt(maxBilling),0,guardian);
-        System.out.println("TOMER");
         guardian.setAccount(account);
         systemManagment.addGuardian(guardian);
         for (Kid kid:kids) {
