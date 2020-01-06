@@ -80,6 +80,7 @@ public class Main {
         systemManagment.insertPayment(creditCard,maxBilling,guardian);//todo change uml
         credit.setCreditNumber(Integer.parseInt(creditCard));
         Account account = new Account(Integer.parseInt(maxBilling),0,guardian);
+        System.out.println("TOMER");
         guardian.setAccount(account);
         systemManagment.addGuardian(guardian);
         for (Kid kid:kids) {
