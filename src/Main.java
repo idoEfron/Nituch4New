@@ -66,6 +66,7 @@ public class Main {
         }
     }
 
+    
     private static void registerKids(SystemManagment systemManagment) {
         Scanner sc = new Scanner(System.in);
         System.out.println("Please insert your ID");
